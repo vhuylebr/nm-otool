@@ -11,7 +11,9 @@
 # include <ctype.h>
 # include <fcntl.h>
 # include <stdio.h>
-# include <elf.h>
+//# include <elf.h>
+#include <mach-o/loader.h>
+#include <mach-o/nlist.h>
 # include <sys/mman.h>
 # include <sys/stat.h>
 # include <unistd.h>
@@ -29,11 +31,11 @@ typedef struct nm_s {
 	void *buf;
 	nmtab_t *nmtab;
 	struct stat s;
-	Elf64_Ehdr *elf;
-	Elf64_Sym *symtab;
-	Elf64_Shdr *shd;
-	Elf64_Shdr sect_sym;
-	Elf64_Shdr *str_tab;
+	struct mach_header_64 *elf;
+	struct symtab_command *symtab;
+	struct section_64 *shd;
+	struct section_64 sect_sym;
+	struct section_64 *str_tab;
 	int nb_file;
 	int nb_func;
 	int shnum;
@@ -42,11 +44,11 @@ typedef struct nm_s {
 }	nm_t;
 
 void get_str_tab(void);
-Elf64_Shdr get_section(int macro);
+struct section_64 get_section(int macro);
 void fill_nmtab(void);
 void aff_nmtab(void);
 void sort_nmtab(void);
-char print_type(Elf64_Sym sym, Elf64_Shdr *shdr);
+char print_type(struct symtab_command sym, struct section_64 *shdr);
 
 nm_t nm;
 

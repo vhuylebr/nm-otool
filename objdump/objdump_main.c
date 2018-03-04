@@ -65,7 +65,7 @@ int start(void)
 		objdump.buf = mmap(NULL, objdump.s.st_size, PROT_READ,
 			MAP_PRIVATE, objdump.fd, 0);
 		if (objdump.buf != NULL &&
-			verif_flag((Elf64_Ehdr *)objdump.buf)) {
+			verif_flag((struct mach_header_64 *)objdump.buf)) {
 			my_objdump();
 		} else {
 			dprintf(2, "my_objdump: « %s »: not a valid file.\n",

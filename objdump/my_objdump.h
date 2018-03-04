@@ -23,11 +23,11 @@ typedef struct objdump_s {
 	void *buf;
 	char *machine_name;
 	struct stat s;
-	Elf64_Ehdr *elf;
-	Elf64_Sym *symtab;
-	Elf64_Shdr *shd;
-	Elf64_Shdr sect_sym;
-	Elf64_Shdr *str_tab;
+	struct mach_header_64 *elf;
+	struct section_64 *symtab;
+	struct section_64 *shd;
+	struct section_64 sect_sym;
+	struct section_64 *str_tab;
 	int nb_file;
 	int nb_func;
 	int shnum;
@@ -48,7 +48,7 @@ void print_hex(int i);
 void print_data(char *sh_strtab_p);
 int is_ok(char *str, int i);
 int find(int size, char *str, const char **str2);
-int verif_flag(Elf64_Ehdr *elf);
+int verif_flag(struct mach_header_64 *elf);
 
 objdump_t objdump;
 

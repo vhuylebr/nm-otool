@@ -37,7 +37,7 @@ void get_str_tab(void)
 	}
 }
 
-Elf64_Shdr get_section(int macro)
+struct section_64 get_section(int macro)
 {
 	int i;
 

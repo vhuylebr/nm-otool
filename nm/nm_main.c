@@ -7,7 +7,7 @@
 
 #include "my_nm.h"
 
-int verif_flag(Elf64_Ehdr *elf)
+int verif_flag(struct mach_header_64 *elf)
 {
 	if (elf->e_ident[1] == 'E' && elf->e_ident[2] == 'L'
 		  && elf->e_ident[3] == 'F')
@@ -41,7 +41,7 @@ int start(void)
 				nm.file_name) * 0 + 84);
 		nm.buf = mmap(NULL, nm.s.st_size, PROT_READ, MAP_PRIVATE, nm.fd,
 			0);
-		if (nm.buf != NULL && verif_flag((Elf64_Ehdr *)nm.buf)) {
+		if (nm.buf != NULL && verif_flag((struct mach_header_64 *)nm.buf)) {
 			my_nm();
 		} else {
 			dprintf(2, "my_nm: « %s »: not a valid file.\n",

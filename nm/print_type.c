@@ -7,7 +7,7 @@
 
 #include "my_nm.h"
 
-void prog_types(Elf64_Sym sym, char *c, Elf64_Shdr *shdr)
+void prog_types(struct section_64 sym, char *c, struct section_64 *shdr)
 {
 	if (shdr[sym.st_shndx].sh_type == SHT_PROGBITS) {
 		switch (shdr[sym.st_shndx].sh_flags) {
@@ -25,7 +25,7 @@ void prog_types(Elf64_Sym sym, char *c, Elf64_Shdr *shdr)
 
 }
 
-void type_types(Elf64_Sym sym, char *c, Elf64_Shdr *shdr)
+void type_types(struct section_64 sym, char *c, struct section_64 *shdr)
 {
 	switch (shdr[sym.st_shndx].sh_type) {
 		case SHT_INIT_ARRAY:
@@ -49,7 +49,7 @@ void type_types(Elf64_Sym sym, char *c, Elf64_Shdr *shdr)
 		prog_types(sym, c, shdr);
 }
 
-void shndx_type(Elf64_Sym sym, char *c, Elf64_Shdr *shdr)
+void shndx_type(struct section_64 sym, char *c, struct section_64 *shdr)
 {
 	switch (sym.st_shndx) {
 		case SHN_UNDEF:
@@ -66,7 +66,7 @@ void shndx_type(Elf64_Sym sym, char *c, Elf64_Shdr *shdr)
 		type_types(sym, c, shdr);
 }
 
-void info_type(Elf64_Sym sym, char *c, Elf64_Shdr *shdr)
+void info_type(struct section_64 sym, char *c, struct section_64 *shdr)
 {
 	switch (ELF64_ST_BIND(sym.st_info)) {
 		case STB_GNU_UNIQUE:
@@ -86,7 +86,7 @@ void info_type(Elf64_Sym sym, char *c, Elf64_Shdr *shdr)
 		shndx_type(sym, c, shdr);
 }
 
-char print_type(Elf64_Sym sym, Elf64_Shdr *shdr)
+char print_type(struct section_64 sym, struct section_64 *shdr)
 {
 	char  c = 0;
 

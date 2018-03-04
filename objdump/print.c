@@ -80,7 +80,7 @@ void print_data(char *sh_strtab_p)
 	}
 }
 
-int verif_flag(Elf64_Ehdr *elf)
+int verif_flag(struct mach_header_64 *elf)
 {
 	if (elf->e_ident[1] == 'E' && elf->e_ident[2] == 'L'
 		  && elf->e_ident[3] == 'F')
